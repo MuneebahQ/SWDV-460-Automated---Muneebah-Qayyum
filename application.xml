@@ -1,0 +1,59 @@
+using System;
+using System.Xml;
+
+
+class Program
+{
+    static void ParseXmlFile(string filename)
+    {
+        XmlDocument doc = new XmlDocument();
+        // Load the XML file
+        doc.Load(filename);
+
+        // Get the root element
+        XmlElement root = doc.DocumentElement;
+
+        // Ensure that the root element is not null and has the name "catalog"
+        if (root != null && root.Name.Equals("catalog", StringComparison.OrdinalIgnoreCase))
+        {
+            // Iterate through the child nodes of the catalog element
+            foreach (XmlNode bookNode in root.ChildNodes)
+            {
+                // Check if the node is an element and is "book"
+                if (bookNode is XmlElement && ((XmlElement)bookNode).Name.Equals("book", StringComparison.OrdinalIgnoreCase))
+                {
+                    string title = null;
+                    Console.WriteLine("Found 'book' element");
+
+                    // Iterate through the child nodes of the book element
+                    foreach (XmlNode bookChildNode in bookNode.ChildNodes)
+                    {
+                        // Check if the child node is an element and is "title"
+                        if (bookChildNode is XmlElement && ((XmlElement)bookChildNode).Name.Equals("title", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // Get the content of the title element
+                            title = bookChildNode.InnerText;
+                            break; // We found the title, no need to continue
+                        }
+                    }
+
+                    // Print the title if found
+                    if (title != null)
+                    {
+                        Console.WriteLine($"Book Title: {title}");
+                    }
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Root element is not 'catalog'");
+        }
+    }
+
+    static void Main()
+    {
+        string filename = "catalog.xml";
+        ParseXmlFile(filename);
+    }
+}
