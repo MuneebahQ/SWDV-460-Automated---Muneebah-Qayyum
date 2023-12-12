@@ -53,6 +53,6 @@ class Program
     {
         string filename = "catalog.xml";
         ParseXmlFile(filename);
-        Console.WriteLine($"Hello world");
+        Console.WriteLine($"Hello world!");
     }
 }
