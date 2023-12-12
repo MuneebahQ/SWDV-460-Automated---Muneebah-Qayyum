@@ -1,7 +1,6 @@
 using System;
 using System.Xml;
 
-
 class Program
 {
     static void ParseXmlFile(string filename)
@@ -50,7 +49,6 @@ class Program
             Console.WriteLine("Root element is not 'catalog'");
         }
     }
-
     static void Main()
     {
         string filename = "catalog.xml";
